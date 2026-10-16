@@ -516,9 +516,15 @@
         "</button>"
       : "";
 
+    // Icono temático como marca de agua de fondo (si la tarjeta define uno).
+    const watermark = card.icono
+      ? '<i class="fas ' + card.icono + ' seasonal-card-watermark" aria-hidden="true"></i>'
+      : "";
+
     return (
       '<article class="carousel-slide seasonal-slide' + (index === 0 ? " active" : "") + '" data-slide="' + index + '">' +
         '<div class="seasonal-card" style="background:' + gradiente + ';color:' + colorTexto + ';--sc-accent:' + colorAcento + ';">' +
+          watermark +
           headerHTML +
           bodyHTML +
           categoryLinkHTML +

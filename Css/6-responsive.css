@@ -1113,6 +1113,19 @@
     body {
         padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px));
     }
+
+    /* El sidebar de filtros se desplaza por sí mismo: reservamos el alto de la
+       barra inferior para que el botón "Aplicar Filtros" no quede tapado. */
+    .sidebar {
+        height: 100dvh;
+        padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 1rem);
+    }
+
+    /* Igual para el panel de "Mis Pedidos": evita que la última tarjeta quede
+       oculta tras la barra de navegación inferior. */
+    .ph-content {
+        padding-bottom: calc(58px + env(safe-area-inset-bottom, 0px) + 1rem);
+    }
 }
 /* El formulario debe conservar el ancho del viewport en pantallas estrechas. */
 @media (max-width: 900px) {

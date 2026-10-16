@@ -90,6 +90,69 @@
   font-family: "Helvetica Neue", Arial, sans-serif;
   text-align: left;
   color: inherit;
+  position: relative;
+  isolation: isolate;
+}
+
+/* ---------- Decoración de fondo (formas) ----------
+   Formas generadas por CSS y tintadas con el color de acento de cada
+   tarjeta (--sc-accent). Van detrás del contenido con z-index negativo
+   (la tarjeta crea contexto de apilamiento con isolation: isolate) para
+   NO romper la fusión mix-blend-mode: multiply de las imágenes, que es
+   la que elimina el fondo blanco de algunos productos. */
+
+.seasonal-card::before,
+.seasonal-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Blobs suaves en las esquinas */
+.seasonal-card::before {
+  background-image:
+    radial-gradient(circle at 90% 6%, var(--sc-accent, #b3132e) 0%, transparent 40%),
+    radial-gradient(circle at 2% 100%, var(--sc-accent, #b3132e) 0%, transparent 36%),
+    radial-gradient(circle at 72% 82%, #ffffff 0%, transparent 42%);
+  opacity: 0.2;
+}
+
+/* Aro (círculo) + textura de puntos, difuminados en diagonal */
+.seasonal-card::after {
+  background-image:
+    radial-gradient(circle at 84% 68%,
+      transparent 0 40px,
+      var(--sc-accent, #b3132e) 40px 42px,
+      transparent 42px),
+    radial-gradient(var(--sc-accent, #b3132e) 1.2px, transparent 1.4px);
+  background-image:
+    radial-gradient(circle at 84% 68%,
+      transparent 0 13cqw,
+      var(--sc-accent, #b3132e) 13cqw 14cqw,
+      transparent 14cqw),
+    radial-gradient(var(--sc-accent, #b3132e) 1.2px, transparent 1.4px);
+  background-size: 100% 100%, 15px 15px;
+  background-repeat: no-repeat, repeat;
+  opacity: 0.12;
+  -webkit-mask-image: linear-gradient(155deg, #000 0%, rgba(0, 0, 0, 0.25) 55%, transparent 85%);
+  mask-image: linear-gradient(155deg, #000 0%, rgba(0, 0, 0, 0.25) 55%, transparent 85%);
+}
+
+/* Marca de agua del icono temático de la tarjeta */
+.seasonal-card-watermark {
+  position: absolute;
+  right: -8%;
+  top: -6%;
+  z-index: -1;
+  font-size: 130px;      /* fallback */
+  font-size: 46cqw;
+  line-height: 1;
+  color: var(--sc-accent, #b3132e);
+  opacity: 0.09;
+  pointer-events: none;
+  transform: rotate(-10deg);
 }
 
 /* ---------- Header de la tarjeta ---------- */

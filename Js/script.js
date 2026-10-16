@@ -355,8 +355,33 @@ let currentSlide = 0;
 let carouselAutoplayInterval = null;
 const CAROUSEL_AUTOPLAY_DELAY = 10000; // 10 segundos
 
+// Cierra el panel de "Mis Pedidos" si está abierto.
+// Se usa antes de cualquier navegación para no quedarse "atrapado" en Pedidos.
+// `closePurchaseHistory` vive en purchase-history.js (carga después), por eso
+// se protege con typeof en lugar de llamarlo directamente.
+function dismissPurchaseHistory() {
+  if (typeof closePurchaseHistory === 'function') {
+    closePurchaseHistory();
+  }
+}
+
+// Acción del botón "Buscar" de la barra inferior (móvil): cierra cualquier
+// panel abierto (Pedidos, carrito, filtros) y enfoca el buscador del header.
+function focusSearchFromBottomNav() {
+  dismissPurchaseHistory();
+  if (typeof closeCart === 'function') closeCart();
+  if (typeof closeSidebar === 'function') closeSidebar();
+
+  const input = document.getElementById('search-input');
+  if (!input) return;
+
+  input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  input.focus({ preventScroll: true });
+}
+
 // Función para ir al inicio
 function goToHome() {
+  dismissPurchaseHistory();
   const targetUrl = "/#";
   if (window.location.pathname !== "/" || window.location.hash !== "#") {
     history.pushState({}, "Inicio", targetUrl);
@@ -481,6 +506,8 @@ window.addEventListener("hashchange", () => {
 });
 
 async function handleRouteChange() {
+  dismissPurchaseHistory();
+
   // Ruta limpia de producto toma prioridad sin importar el hash
   const pathMatch = window.location.pathname.match(/^\/p\/([^\/]+)/);
   if (pathMatch && pathMatch[1]) {
@@ -1110,6 +1137,7 @@ function initPriceFilter() {
 
 // Filtrar por categoría
 function filterByCategory(category) {
+  dismissPurchaseHistory();
   setActiveCategoryNavigation(category);
 
   // Ocultar mensaje de no resultados si está visible
@@ -1214,6 +1242,7 @@ function getSearchRouteUrl(searchTerm = "") {
 }
 
 function searchProducts(showSuggestions = true, syncUrl = true) {
+  dismissPurchaseHistory();
   const searchInput = document.getElementById("search-input");
   const productsContainer = document.getElementById("products-container");
   const noResultsMessage = document.getElementById("no-results-message");
@@ -1648,6 +1677,7 @@ function toggleSidebar() {
 }
 
 function openCategoriesFromBottomNav() {
+  dismissPurchaseHistory();
   const bottomNav = document.getElementById("bottom-nav");
   const sidebar = document.getElementById("sidebar");
   const categories = document.getElementById("sidebar-categories");
@@ -2629,6 +2659,7 @@ function renderCategoriesCircle() {
 // Esta versión es `async` para poder recargar datos desde el repo
 // remoto si el producto no está presente localmente.
 async function showProductDetail(arg) {
+  dismissPurchaseHistory();
   window.scrollTo({ top: 0 });
 
   // determinar `info` de búsqueda o usar el objeto directamente
@@ -3532,16 +3563,22 @@ function renderEmptyCartRecommendations() {
       : pack.precio.toFixed(2);
     const description = pack.descripcion ? pack.descripcion : "Ideal para completar tu compra con un pack práctico.";
     const imagePath = `${getPackImageUrl(pack.imagen, 'thumb')}`;
+    const encodedName = encodeURIComponent(pack.nombre);
 
     return `
-      <article class="empty-cart-rec-card">
+      <article class="empty-cart-rec-card" tabindex="0"
+        onclick="openPackDetailFromEmptyCart('${encodedName}', event)"
+        onkeydown="if ((event.key === 'Enter' || event.key === ' ') && event.target === event.currentTarget) { event.preventDefault(); openPackDetailFromEmptyCart('${encodedName}', event); }">
         <img class="empty-cart-rec-image" src="${imagePath}" alt="${escapeAttr(pack.nombre)}" loading="lazy" onerror="this.onerror=null;this.src='Images/pack-placeholder.svg'">
         <div class="empty-cart-rec-info">
           <div class="empty-cart-rec-badges">${badges.join('')}</div>
           <h4>${escapeHtml(pack.nombre)}</h4>
           <p>${description}</p>
           <div class="empty-cart-rec-price">$${price}</div>
-          <button class="empty-cart-quick-add-btn" onclick="addPackToCart('${encodeURIComponent(pack.nombre)}', event)">Añadir rápido</button>
+          <div class="empty-cart-rec-actions">
+            <span class="empty-cart-rec-cta">Ver detalles <i class="fas fa-chevron-right" aria-hidden="true"></i></span>
+            <button class="empty-cart-quick-add-btn" onclick="addPackToCart('${encodedName}', event)">Añadir rápido</button>
+          </div>
         </div>
       </article>
     `;
@@ -3757,6 +3794,16 @@ function refreshCartWithLiveCatalogData() {
   }
 
   updateCart();
+}
+
+/**
+ * Abre el detalle de un pack desde las recomendaciones del carrito vacío.
+ * Cierra el carrito (su panel quedaría por encima del detalle) y muestra el pack.
+ */
+function openPackDetailFromEmptyCart(encodedName, event) {
+  if (event) event.stopPropagation();
+  if (typeof closeCart === 'function') closeCart();
+  showPackDetail(encodedName);
 }
 
 /**
@@ -4030,6 +4077,8 @@ function toggleCart(event) {
     event.preventDefault();
     event.stopPropagation();
   }
+
+  dismissPurchaseHistory();
 
   const cart = document.getElementById("cart");
   const cartOverlay = document.getElementById("cart-overlay");
@@ -4559,6 +4608,7 @@ function showAllPacks() {
  * Renderizar el panel de detalle de packs (estilo Amazon)
  */
 function renderPacksDetail() {
+  dismissPurchaseHistory();
   const packsDetailContainer = document.getElementById("packs-detail");
   
   if (!packsDetailContainer) return;
@@ -4677,7 +4727,9 @@ function renderPacksDetail() {
  */
 function showPackDetail(packName, event) {
   if (event) event.stopPropagation();
-  
+
+  dismissPurchaseHistory();
+
   window.scrollTo({ top: 0 });
   const decodedName = safeDecodeURIComponent(packName);
   const pack = packs.find((p) => p.nombre === decodedName);
