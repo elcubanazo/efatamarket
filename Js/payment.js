@@ -4,6 +4,11 @@ const DEFAULT_FALLBACK_COUNTRY_ISO = 'CU';
 
 const DELIVERY_PHONE_DIAL_CODE = '53';
 
+// Versión de los documentos legales (términos, privacidad y devoluciones).
+// Se guarda junto a cada pedido para poder demostrar qué texto estaba vigente
+// cuando el cliente aceptó. Súbele la versión solo cuando cambien los textos.
+const TERMS_VERSION = '2026-10';
+
 const COUNTRY_DIAL_CODES = [
     { iso: 'CU', name: 'Cuba', dial: '53' },
     { iso: 'US', name: 'Estados Unidos', dial: '1' },
@@ -140,6 +145,7 @@ function initializePaymentSystem() {
     restrictNumericPhoneInputs();
     injectPaymentStyles();
     populatePhoneCountrySelects();
+    initTermsAcceptListener();
 
     document.querySelectorAll('.phone-country-select').forEach(select => {
         select.addEventListener('change', () => {
@@ -634,7 +640,12 @@ async function processPayment(e) {
             sistema_operativo: getOSInfo(), // Info del SO
             fuente_trafico: document.referrer || "Directo", // Fuente de tráfico
             fecha_pedido: new Date().toISOString(), // Marca de tiempo del pedido
-            client_order_id: getOrCreateClientOrderId()
+            client_order_id: getOrCreateClientOrderId(),
+            // Constancia de la aceptación: con qué versión de los documentos
+            // aceptó el cliente. validateForm() ya se aseguró de que la casilla
+            // estaba marcada.
+            terms_accepted: formData['terms-accepted'] === true,
+            terms_version: formData['terms-version'] || TERMS_VERSION
         };
         // envar las estadstcas de peddo al server de estadstcas
         let estadisticaResponse;
@@ -964,7 +975,37 @@ function validateForm() {
         formData[field] = value;
     });
 
+    // Aceptación de Términos, Privacidad y Devoluciones. Sin esta casilla el
+    // cliente estaría aceptando un contrato que no puede consultar, así que el
+    // pedido no debe salir.
+    const termsAccepted = form.querySelector('[name="terms-accept"]')?.checked === true;
+    if (!termsAccepted) {
+        showTermsAcceptError(true);
+        throw new Error('Debes aceptar los términos y condiciones para continuar con el pedido.');
+    }
+    formData['terms-accepted'] = true;
+    // Versión de los documentos aceptados, para poder demostrar después qué
+    // texto estaba vigente en la fecha del pedido.
+    formData['terms-version'] = TERMS_VERSION;
+
     return formData;
+}
+
+// Muestra u oculta el aviso de "acepta los términos" bajo la casilla.
+function showTermsAcceptError(show) {
+    const err = document.getElementById('terms-accept-error');
+    if (err) err.classList.toggle('visible', !!show);
+}
+
+// Al marcar la casilla, el aviso desaparece.
+function initTermsAcceptListener() {
+    const checkbox = document.querySelector('[name="terms-accept"]');
+    if (checkbox && !checkbox.dataset.termsListenerAdded) {
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) showTermsAcceptError(false);
+        });
+        checkbox.dataset.termsListenerAdded = 'true';
+    }
 }
 
 // Antepone el código de país seleccionado al número local, sin "+", listo

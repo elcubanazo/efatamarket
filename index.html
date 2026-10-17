@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="Css/7-features.css">
     <link rel="stylesheet" href="Css/8-seasonal-carousel.css">
     <link rel="stylesheet" href="Css/9-storefront-polish.css">
+    <link rel="stylesheet" href="Css/10-legal.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <base href="./">
@@ -398,6 +399,26 @@
                     </div>
                 </div>
 
+                <!-- Aceptación de términos: sin esta casilla el cliente aceptaría un
+                     contrato que no puede consultar. payment.js la exige antes de
+                     dejar enviar el pedido. -->
+                <div class="terms-accept-group">
+                    <label class="terms-accept-label" for="terms-accept">
+                        <input type="checkbox" id="terms-accept" name="terms-accept"
+                            class="terms-accept-input">
+                        <span>He leído y acepto los
+                            <a href="terminos.html" target="_blank" rel="noopener noreferrer">Términos y Condiciones
+                                de Venta</a>,
+                            la <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Política de
+                                Privacidad</a> y la
+                            <a href="devoluciones.html" target="_blank" rel="noopener noreferrer">Política de
+                                Devoluciones</a>.</span>
+                    </label>
+                    <p class="terms-accept-error" id="terms-accept-error" role="alert">
+                        Debes aceptar los términos y condiciones para continuar con el pedido.
+                    </p>
+                </div>
+
                 </div>
 
                 <aside class="payment-order-panel">
@@ -452,6 +473,12 @@
                 </div>
             </div>
             <div class="footer-credits">
+                <nav class="footer-legal-nav" aria-label="Enlaces legales">
+                    <a href="terminos.html">Términos y Condiciones</a>
+                    <a href="privacidad.html">Política de Privacidad</a>
+                    <a href="devoluciones.html">Devoluciones y Cambios</a>
+                    <a href="reclamaciones.html">Libro de Reclamaciones</a>
+                </nav>
                 <p class="footer-text">© 2026 El Cubanazo y Afiliados. Todos los derechos reservados.</p>
                 <div class="footer-developer">
                     <span class="footer-developer-label">Diseño y desarrollo por</span>

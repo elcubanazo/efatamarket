@@ -1,0 +1,857 @@
+/* =========================================================================
+   10-legal.css
+   Estilos de las páginas legales de El Cubanazo (términos, privacidad,
+   devoluciones, reclamaciones) y del bloque de enlaces legales del pie
+   de la tienda (index.html).
+   Usa las variables de 1-foundation.css para mantener la coherencia visual.
+   ========================================================================= */
+
+/* ---------- Encabezado de las páginas legales ---------- */
+
+.legal-header {
+    background: linear-gradient(135deg, var(--blanco) 0%, var(--gris-claro) 100%);
+    border-bottom: 1px solid var(--gris-claro);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.legal-header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.legal-back,
+.legal-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--negro);
+    transition: var(--transicion);
+}
+
+.legal-back {
+    font-size: 0.92rem;
+    color: var(--negro-claro);
+}
+
+.legal-back:hover,
+.legal-brand:hover {
+    color: var(--color-principal);
+}
+
+.legal-brand {
+    font-size: 1.1rem;
+}
+
+/* ---------- Documento ---------- */
+
+.legal-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3.5rem;
+}
+
+.legal-doc {
+    background: var(--blanco);
+    border: 1px solid var(--gris-claro);
+    border-radius: var(--borde-radius);
+    padding: 2rem 2.25rem;
+    box-shadow: var(--sombra-suave);
+    line-height: 1.65;
+    color: var(--negro-claro);
+    font-size: 1rem;
+}
+
+.legal-doc h1 {
+    font-size: 1.75rem;
+    color: var(--negro);
+    margin: 0 0 0.35rem;
+    line-height: 1.25;
+}
+
+.legal-doc h2 {
+    font-size: 1.2rem;
+    color: var(--negro);
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--gris-claro);
+}
+
+.legal-doc h3 {
+    font-size: 1.05rem;
+    color: var(--negro);
+    margin: 1.35rem 0 0.5rem;
+}
+
+.legal-doc p {
+    margin: 0 0 0.9rem;
+}
+
+.legal-doc ul {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+}
+
+.legal-doc li {
+    margin-bottom: 0.45rem;
+}
+
+.legal-doc strong {
+    color: var(--negro);
+}
+
+.legal-doc a {
+    color: #1a6ec4;
+    text-decoration: underline;
+    word-break: break-word;
+}
+
+.legal-doc a:hover {
+    color: #0d4d8f;
+}
+
+.legal-doc code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    background: var(--gris-claro);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    color: var(--negro);
+}
+
+.legal-updated {
+    font-size: 0.88rem;
+    color: var(--gris-medio);
+    margin: 0 0 1.5rem;
+}
+
+/* ---------- Avisos dentro del documento ---------- */
+
+.legal-callout,
+.legal-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 1rem 1.1rem;
+    border-radius: var(--borde-radius);
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.legal-callout {
+    background: #f0f7ff;
+    border: 1px solid #b4d9ff;
+    color: var(--negro);
+}
+
+.legal-warning {
+    background: #fff8e6;
+    border: 1px solid #f0d68a;
+    color: var(--negro);
+}
+
+.legal-callout i,
+.legal-warning i {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    font-size: 1.05rem;
+}
+
+.legal-callout p,
+.legal-warning p {
+    margin: 0;
+}
+
+.legal-note {
+    font-size: 0.9rem;
+    color: var(--gris-oscuro);
+    font-style: italic;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--gris-claro);
+}
+
+/* ---------- Tablas ---------- */
+
+.legal-table-wrap {
+    /* En móvil la tabla se desplaza en vez de desbordar la pantalla */
+    overflow-x: auto;
+    margin: 0 0 1.25rem;
+    border: 1px solid var(--gris-claro);
+    border-radius: var(--borde-radius);
+    -webkit-overflow-scrolling: touch;
+}
+
+.legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    /* Sin min-width forzado: por debajo de 600px la tabla se apila en
+       tarjetas (ver el bloque responsive), que es mejor que obligar a
+       arrastrar horizontalmente. */
+}
+
+.legal-table th,
+.legal-table td {
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gris-claro);
+}
+
+.legal-table thead th {
+    background: var(--gris-claro);
+    color: var(--negro);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.legal-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.legal-table tbody tr:nth-child(even) {
+    background: #fbfbfc;
+}
+
+/* ---------- Formulario de reclamaciones ---------- */
+
+.legal-form {
+    display: grid;
+    gap: 1rem;
+    margin: 1.25rem 0 0;
+}
+
+.legal-form-row {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.legal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.legal-field label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--negro);
+}
+
+.legal-field input,
+.legal-field select,
+.legal-field textarea {
+    /* 1rem = 16px: por debajo, iOS Safari hace zoom automatico al enfocar */
+    font-size: 1rem;
+    font-family: inherit;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+    background: var(--blanco);
+    color: var(--negro);
+    width: 100%;
+    transition: var(--transicion);
+}
+
+.legal-field input:focus,
+.legal-field select:focus,
+.legal-field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px rgba(180, 217, 255, 0.35);
+}
+
+.legal-field textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.legal-field-hint {
+    font-size: 0.82rem;
+    color: var(--gris-medio);
+}
+
+.legal-form-submit {
+    justify-self: start;
+    background: linear-gradient(180deg, var(--boton-carrito) 0%, var(--botonA) 100%);
+    color: var(--negro);
+    border: 2px solid var(--boton-carrito-borde);
+    border-radius: var(--borde-radius);
+    padding: 0.8rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transicion);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.legal-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* ---------- Navegación entre documentos ---------- */
+
+.legal-footer-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--gris-claro);
+}
+
+.legal-footer-nav h2 {
+    font-size: 1.05rem;
+    margin: 0 0 0.75rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.legal-footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+}
+
+/* ---------- Pie de las páginas legales ---------- */
+
+.legal-site-footer {
+    background: var(--gris-claro);
+    border-top: 1px solid var(--gris-claro);
+    padding: 1.5rem 1.25rem;
+}
+
+.legal-footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.legal-footer-inner p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--gris-oscuro);
+}
+
+.legal-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+.legal-footer-links a {
+    font-size: 0.88rem;
+    color: var(--negro-claro);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.legal-footer-links a:hover {
+    text-decoration: underline;
+    color: var(--color-principal);
+}
+
+/* =========================================================================
+   Bloque de enlaces legales dentro de la tienda (index.html)
+   ========================================================================= */
+
+.footer-legal-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1rem;
+    /* El footer-credits es un flex en fila: esto fuerza a la barra legal a
+       ocupar su propia línea, encima del texto de copyright. */
+    width: 100%;
+    flex-basis: 100%;
+    margin: 0 0 0.6rem;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-legal-nav a {
+    font-size: 0.85rem;
+    /* El pie es oscuro: se usa blanco translúcido, no un gris. */
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-legal-nav a:hover {
+    color: var(--blanco);
+    text-decoration: underline;
+}
+
+/* =========================================================================
+   Casilla de aceptación de términos en la planilla de pedido (index.html)
+   ========================================================================= */
+
+.terms-accept-group {
+    margin: 1rem 0 0.5rem;
+    padding: 0.9rem 1rem;
+    background: var(--gris-claro);
+    border: 1px solid var(--gris-claro);
+    border-radius: var(--borde-radius);
+}
+
+.terms-accept-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--negro-claro);
+    margin: 0;
+}
+
+.terms-accept-input {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin: 0.1rem 0 0;
+    accent-color: var(--color-principal);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.terms-accept-label a {
+    color: var(--color-accent-primary);
+    text-decoration: underline;
+}
+
+.terms-accept-label a:hover {
+    color: var(--azul-oscuro);
+}
+
+.terms-accept-error {
+    display: none;
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: var(--rojo-mas-vendido);
+    font-weight: 600;
+}
+
+.terms-accept-error.visible {
+    display: block;
+}
+
+/* ---------- Responsive ---------- */
+
+/* =========================================================================
+   RESPONSIVE
+   Recorre de ancho grande a pequeño. El salto importante esta en 600px:
+   por debajo, las tablas dejan de ser tablas y se apilan en tarjetas usando
+   el data-label de cada <td>, porque con 3 columnas una tabla obliga a
+   arrastrar lateralmente en cualquier movil.
+   ========================================================================= */
+
+/* ---------- Tablet: el documento se estrecha antes de llegar al movil -------- */
+@media (max-width: 1024px) {
+    .legal-main {
+        padding: 1.75rem 1.5rem 3rem;
+    }
+
+    .legal-doc {
+        padding: 1.6rem 1.6rem;
+    }
+
+    .legal-doc h1 {
+        font-size: 1.55rem;
+    }
+
+    .legal-doc h2 {
+        font-size: 1.12rem;
+        margin-top: 1.75rem;
+    }
+
+    .legal-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .legal-form-submit {
+        width: 100%;
+        justify-self: stretch;
+    }
+}
+
+/* ---------- Movil comun ---------- */
+@media (max-width: 768px) {
+    .legal-main {
+        padding: 1.25rem 0.85rem 2.5rem;
+    }
+
+    .legal-doc {
+        padding: 1.35rem 1.1rem;
+        font-size: 0.96rem;
+    }
+
+    .legal-doc h1 {
+        font-size: 1.4rem;
+    }
+
+    .legal-doc h2 {
+        font-size: 1.1rem;
+        margin-top: 1.6rem;
+    }
+
+    .legal-header-inner {
+        padding: 0.7rem 0.85rem;
+    }
+
+    .legal-footer-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* En el pie, los enlaces pasaban a tener ~16px de alto: demasiado
+       pequeno para el dedo. Se agrupan en una rejilla con area tactil de 44px. */
+    .legal-footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .legal-footer-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--gris-claro);
+        border-radius: 8px;
+        background: var(--blanco);
+    }
+
+    /* Enlaces del cuerpo del documento: area tactil minima. */
+    .legal-doc a {
+        display: inline-block;
+        padding: 0.1rem 0;
+        min-height: 24px;
+    }
+}
+
+/* ---------- Tablet y movil grande: las tablas siguen siendo tablas -------- */
+@media (max-width: 600px) {
+    .legal-table-wrap {
+        /* Sigue pudiendo desplazarse si algo no cabe, pero ya no es el caso
+           normal: a partir del siguiente bloque la tabla se apila. */
+        overflow-x: visible;
+    }
+
+    .legal-table thead th {
+        white-space: normal;
+    }
+}
+
+/* ---------- Movil: la tabla se apila en tarjetas ----------
+   Cada <td> muestra su data-label encima. Es el patron habitual para tablas
+   en pantallas estrechas: el cliente lee "Dato: Nombre y apellidos" en vez
+   de tener que comparar columnas de lado. */
+@media (max-width: 600px) {
+    .legal-table,
+    .legal-table tbody,
+    .legal-table tr,
+    .legal-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .legal-table thead {
+        /* La cabecera solo tiene sentido en horizontal: se oculta y la
+           info pasa a las etiquetas data-label. */
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    .legal-table tbody tr {
+        border: 1px solid var(--gris-claro);
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        padding: 0.35rem 0.7rem 0.55rem;
+        background: var(--blanco);
+    }
+
+    .legal-table tbody tr:last-child {
+        margin-bottom: 0;
+    }
+
+    /* El zebra se pierde al apilar; se usa el borde de la tarjeta. */
+    .legal-table tbody tr:nth-child(even) {
+        background: #fbfbfc;
+    }
+
+    .legal-table td {
+        border-bottom: 1px dashed var(--gris-claro);
+        padding: 0.5rem 0;
+    }
+
+    .legal-table tbody tr td:last-child {
+        border-bottom: none;
+        padding-bottom: 0.25rem;
+    }
+
+    /* La etiqueta de columna, encima de cada celda. */
+    .legal-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        color: var(--gris-medio);
+        margin-bottom: 0.15rem;
+    }
+
+    /* Las celdas que llevan <code> (claves de localStorage) ya tienen su
+       propio bloque, asi que la etiqueta se ve bien justo encima. */
+    .legal-table code {
+        display: inline-block;
+    }
+}
+
+/* ---------- Movil muy estrecho (iPhone SE, 320-360px) ---------- */
+@media (max-width: 380px) {
+    .legal-main {
+        padding: 1rem 0.6rem 2rem;
+    }
+
+    .legal-doc {
+        padding: 1.1rem 0.9rem;
+        font-size: 0.94rem;
+        line-height: 1.6;
+    }
+
+    .legal-doc h1 {
+        font-size: 1.28rem;
+    }
+
+    .legal-doc h2 {
+        font-size: 1.05rem;
+        margin-top: 1.4rem;
+    }
+
+    .legal-doc h3 {
+        font-size: 1rem;
+        margin-top: 1.1rem;
+    }
+
+    .legal-callout,
+    .legal-warning {
+        padding: 0.85rem 0.85rem;
+        font-size: 0.9rem;
+    }
+
+    .legal-back,
+    .legal-brand {
+        font-size: 0.88rem;
+    }
+
+    .legal-table tbody tr {
+        padding: 0.3rem 0.6rem 0.45rem;
+    }
+
+    .legal-table td::before {
+        font-size: 0.64rem;
+    }
+
+    .legal-footer-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Movil en horizontal y portatiles bajos ----------
+   Con poca altura, el encabezado pegajoso se come media pantalla y queda
+   muy poco para leer. */
+@media (orientation: landscape) and (max-height: 560px) {
+    .legal-header {
+        position: static;
+    }
+
+    .legal-header-inner {
+        padding: 0.5rem 0.85rem;
+    }
+
+    .legal-main {
+        padding-top: 1rem;
+    }
+
+    .legal-footer-links a {
+        min-height: 40px;
+    }
+}
+
+/* ---------- Preferencia de menos animacion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .legal-back,
+    .legal-brand,
+    .legal-field input,
+    .legal-field select,
+    .legal-field textarea,
+    .legal-form-submit {
+        transition: none;
+    }
+
+    .legal-form-submit:hover {
+        transform: none;
+    }
+}
+
+/* =========================================================================
+   IMPRESION
+   Los terminos y la politica de privacidad se imprimen a menudo (para
+   guardarlos o presentarlos). En papel interesa el texto, no la decoracion:
+   sin colores de fondo, sin encabezado pegajoso, sin el boton del formulario,
+   y con las URLs escritas para que se puedan escribir a mano.
+   ========================================================================= */
+@media print {
+    .legal-header,
+    .legal-site-footer,
+    .legal-form,
+    .legal-callout i,
+    .legal-warning i,
+    .legal-back {
+        display: none !important;
+    }
+
+    body {
+        background: var(--blanco);
+    }
+
+    .legal-main {
+        max-width: none;
+        padding: 0;
+    }
+
+    .legal-doc {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: #000;
+    }
+
+    .legal-doc h1 {
+        font-size: 18pt;
+    }
+
+    .legal-doc h2 {
+        font-size: 13pt;
+        border-bottom: 1px solid #999;
+        /* Evita que un titulo quede solo al pie de una pagina. */
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
+    .legal-doc h3 {
+        font-size: 11.5pt;
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
+    /* Corta la tabla entre paginas sin partir una fila a la mitad. */
+    .legal-table {
+        width: 100%;
+        font-size: 9.5pt;
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+
+    .legal-table thead {
+        display: table-header-group;
+    }
+
+    .legal-table tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .legal-table th,
+    .legal-table td {
+        border: 1px solid #bbb;
+        padding: 0.35rem 0.45rem;
+    }
+
+    .legal-table thead th {
+        background: #eee !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* En papel el apilado en tarjetas no aplica: vuelve a ser tabla. */
+    .legal-table,
+    .legal-table tbody,
+    .legal-table tr,
+    .legal-table td {
+        display: table-row;
+        width: auto;
+    }
+
+    .legal-table td {
+        border-bottom: 1px solid #bbb;
+        padding: 0.35rem 0.45rem;
+    }
+
+    .legal-table td::before {
+        content: none;
+    }
+
+    .legal-table tbody tr {
+        border: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        background: none !important;
+    }
+
+    .legal-doc a {
+        color: #000;
+        text-decoration: underline;
+    }
+
+    /* Tras un enlace, la URL para poder escribirla. */
+    .legal-doc a[href^="http"]::after,
+    .legal-doc a[href$=".html"]::after {
+        content: " (" attr(href) ")";
+        font-size: 8.5pt;
+        color: #444;
+        word-break: break-all;
+    }
+
+    /* El aviso con icono de informacion pierde el icono: se deja solo el texto. */
+    .legal-callout,
+    .legal-warning {
+        border: 1px solid #999;
+        background: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}

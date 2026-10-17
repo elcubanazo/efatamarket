@@ -4082,7 +4082,11 @@ function openWhatsApp() {
   const ubicacion = typeof UBICACIONES_DISPONIBLES !== "undefined"
     ? UBICACIONES_DISPONIBLES.find((item) => item.id === selectedUbicacion)
     : null;
-  const phoneNumber = ubicacion?.whatsapp || "5354057298"; // Número por defecto si no se encuentra la ubicación
+  const phoneNumber = ubicacion?.whatsapp
+    || (typeof UBICACIONES_DISPONIBLES !== "undefined"
+      ? UBICACIONES_DISPONIBLES[0]?.whatsapp
+      : null)
+    || "5354622105"; // Respaldo si la configuración de ubicaciones no está disponible
   const message = encodeURIComponent(
     "Estoy interesado en los productos que vi en su tienda. ¿Podrían ayudarme?"
   );

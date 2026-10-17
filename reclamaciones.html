@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro de Reclamaciones - El Cubanazo</title>
+
+    <meta name="description"
+        content="Libro de Reclamaciones de El Cubanazo. Deja constancia escrita de cualquier incidencia con tu pedido y sigue su estado de resolución.">
+    <meta name="author" content="El Cubanazo y Afiliados">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Libro de Reclamaciones - El Cubanazo">
+    <meta property="og:description" content="Deja constancia escrita de cualquier incidencia con tu pedido.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+
+    <link rel="icon" type="image/png" href="Images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico">
+
+    <link rel="stylesheet" href="Css/1-foundation.css">
+    <link rel="stylesheet" href="Css/10-legal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <header class="legal-header">
+        <div class="legal-header-inner">
+            <a href="index.html" class="legal-back">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                Volver a la tienda
+            </a>
+            <a href="index.html" class="legal-brand">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                El Cubanazo
+            </a>
+        </div>
+    </header>
+
+    <main class="legal-main">
+        <article class="legal-doc">
+            <h1>Libro de Reclamaciones</h1>
+            <p class="legal-updated">Última actualización: <time datetime="2026-10-16">octubre de 2026</time></p>
+
+            <div class="legal-callout">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                <p>Este es el Libro de Reclamaciones de El Cubanazo. Presentando una reclamación dejas
+                    constancia escrita de la incidencia, lo que permite su seguimiento y te sirve como
+                    respaldo.</p>
+            </div>
+
+            <h2>1. Cómo presentar una reclamación</h2>
+            <p>Puedes presentar tu reclamación de dos formas:</p>
+            <ol>
+                <li><strong>Por correo electrónico</strong> (la más rápida): envía un correo a
+                    <a href="mailto:soporte.elcubanazo@gmail.com">soporte.elcubanazo@gmail.com</a> con el
+                    asunto «Reclamación» y los datos indicados abajo. Recibirás respuesta a la misma
+                    dirección.</li>
+                <li><strong>Por teléfono o WhatsApp</strong> llamando al <strong data-phone-ubicacion>+53 54622105 (Matanzas) · +53 58762635 (Güines Mayabeque)</strong>, y
+                    dejando constancia por escrito en el correo.</li>
+            </ol>
+            <p>El tratamiento de los datos que nos facilitas en este libro se describe en nuestra
+                <a href="privacidad.html">Política de Privacidad</a>.</p>
+
+            <h2>2. Plazo de respuesta</h2>
+            <p>Nos comprometemos a responder toda reclamación en un plazo máximo de <strong>72 horas hábiles</strong>
+                desde su recepción. Si la resolución requiriera más tiempo por causa justificada, te lo
+                comunicaremos indicando el motivo y un nuevo plazo.</p>
+
+            <h2>3. Formulario de reclamación</h2>
+            <p>Completa los campos siguientes y envíalos por correo a
+                <a href="mailto:soporte.elcubanazo@gmail.com">soporte.elcubanazo@gmail.com</a> o entrégalos
+                en mano si te resulta más cómodo.</p>
+
+            <form class="legal-form" onsubmit="return false;">
+                <div class="legal-form-row">
+                    <div class="legal-field">
+                        <label for="rec-nombre">Nombre y apellidos *</label>
+                        <input type="text" id="rec-nombre" name="nombre" autocomplete="name" required>
+                    </div>
+                    <div class="legal-field">
+                        <label for="rec-telefono">Teléfono de contacto *</label>
+                        <input type="tel" id="rec-telefono" name="telefono" autocomplete="tel" required>
+                    </div>
+                </div>
+
+                <div class="legal-form-row">
+                    <div class="legal-field">
+                        <label for="rec-email">Correo electrónico *</label>
+                        <input type="email" id="rec-email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="legal-field">
+                        <label for="rec-pedido">Número de pedido</label>
+                        <input type="text" id="rec-pedido" name="pedido" placeholder="Ej: EC-01"
+                            pattern="[A-Za-z0-9\-]+">
+                        <span class="legal-field-hint">Aparece en la confirmación de tu pedido.</span>
+                    </div>
+                </div>
+
+                <div class="legal-form-row">
+                    <div class="legal-field">
+                        <label for="rec-fecha">Fecha de la incidencia *</label>
+                        <input type="date" id="rec-fecha" name="fecha" required>
+                    </div>
+                    <div class="legal-field">
+                        <label for="rec-motivo">Motivo de la reclamación *</label>
+                        <select id="rec-motivo" name="motivo" required>
+                            <option value="">Selecciona un motivo</option>
+                            <option>Producto no entregado</option>
+                            <option>Producto recibido distinto del pedido</option>
+                            <option>Producto dañado o en mal estado</option>
+                            <option>Cantidad incorrecta</option>
+                            <option>Producto caducado en la entrega</option>
+                            <option>Problema con el pago</option>
+                            <option>Otro motivo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="legal-field">
+                    <label for="rec-descripcion">Descripción de los hechos *</label>
+                    <textarea id="rec-descripcion" name="descripcion" required
+                        placeholder="Describe con detalle lo ocurrido, indicando productos, cantidades y cualquier detalle que nos ayude a resolverlo."></textarea>
+                </div>
+
+                <button type="submit" class="legal-form-submit" id="rec-enviar">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    Preparar y enviar por correo
+                </button>
+                <p class="legal-field-hint">
+                    Al pulsar el botón se abrirá tu programa de correo con la reclamación ya redactada para que
+                    la envíes. No se almacena ningún dato desde esta página.
+                </p>
+            </form>
+
+            <h2>4. Datos de la tienda</h2>
+            <p>Si necesitas identificar a la tienda para cursar tu reclamación, estos son sus datos de
+                contacto:</p>
+            <ul>
+                <li><strong>Teléfono:</strong> <span data-phone-ubicacion>+53 54622105 (Matanzas) · +53 58762635 (Güines Mayabeque)</span></li>
+                <li><strong>Correo electrónico:</strong>
+                    <a href="mailto:soporte.elcubanazo@gmail.com">soporte.elcubanazo@gmail.com</a></li>
+            </ul>
+
+            <div class="legal-footer-nav">
+                <h2>Documentos relacionados</h2>
+                <ul>
+                    <li><a href="terminos.html">Términos y Condiciones de Venta</a></li>
+                    <li><a href="privacidad.html">Política de Privacidad</a></li>
+                    <li><a href="devoluciones.html">Política de Devoluciones y Cambios</a></li>
+                    <li><a href="index.html">Volver a la tienda</a></li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // El formulario no envía nada a ningún servidor: compone el texto de la
+        // reclamación y lo abre en el cliente de correo del usuario. Así el
+        // Libro no almacena datos personales en ningún sitio.
+        (function () {
+            var form = document.querySelector('.legal-form');
+            var btn = document.getElementById('rec-enviar');
+            if (!form || !btn) return;
+
+            form.addEventListener('submit', function () {
+                var get = function (id) {
+                    var el = document.getElementById(id);
+                    return el ? el.value.trim() : '';
+                };
+                var pedido = get('rec-pedido');
+                var asunto = 'Reclamacion El Cubanazo' + (pedido ? ' - Pedido ' + pedido : '');
+                var cuerpo = [
+                    'RECLAMACION / LIBRO DE RECLAMACIONES',
+                    '',
+                    'Nombre: ' + get('rec-nombre'),
+                    'Telefono: ' + get('rec-telefono'),
+                    'Correo: ' + get('rec-email'),
+                    'Numero de pedido: ' + (pedido || '(no indicado)'),
+                    'Fecha de la incidencia: ' + get('rec-fecha'),
+                    'Motivo: ' + get('rec-motivo'),
+                    '',
+                    'Descripcion de los hechos:',
+                    get('rec-descripcion'),
+                    '',
+                    '--',
+                    'Enviado desde el Libro de Reclamaciones de El Cubanazo'
+                ].join('\n');
+
+                window.location.href = 'mailto:soporte.elcubanazo@gmail.com'
+                    + '?subject=' + encodeURIComponent(asunto)
+                    + '&body=' + encodeURIComponent(cuerpo);
+
+                btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Abriendo tu correo...';
+            });
+        })();
+    </script>
+
+    <footer class="legal-site-footer">
+        <div class="legal-footer-inner">
+            <p>© 2026 El Cubanazo y Afiliados. Todos los derechos reservados.</p>
+            <nav class="legal-footer-links" aria-label="Enlaces legales">
+                <a href="terminos.html">Términos</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="devoluciones.html">Devoluciones</a>
+                <a href="reclamaciones.html">Reclamaciones</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="Js/firebase-config.js"></script>
+    <script>
+        // Rellena los teléfonos de contacto según la ubicación elegida en la tienda.
+        // Si aún no hay ubicación seleccionada, muestra las dos sucursales.
+        (function () {
+            function telefonoTexto() {
+                var ubic = (typeof getSelectedUbicacion === 'function') ? getSelectedUbicacion() : null;
+                var tel = (typeof obtenerTelefonoUbicacion === 'function') ? obtenerTelefonoUbicacion(ubic) : null;
+                if (tel && typeof formatearTelefonoUbicacion === 'function') {
+                    return formatearTelefonoUbicacion(tel) + ' (' + nombreUbicacion(ubic) + ')';
+                }
+                if (typeof UBICACIONES_DISPONIBLES !== 'undefined' && typeof formatearTelefonoUbicacion === 'function') {
+                    return UBICACIONES_DISPONIBLES.map(function (u) {
+                        return formatearTelefonoUbicacion(u.whatsapp) + ' (' + u.nombre + ')';
+                    }).join(' · ');
+                }
+                return '';
+            }
+            function render() {
+                var texto = telefonoTexto();
+                if (!texto) return;
+                document.querySelectorAll('[data-phone-ubicacion]').forEach(function (el) {
+                    el.textContent = texto;
+                });
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', render);
+            } else {
+                render();
+            }
+        })();
+    </script>
+</body>
+
+</html>
