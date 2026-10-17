@@ -254,25 +254,6 @@
             <button class="close-btn" onclick="toggleCart()">×</button>
         </div>
         <div class="cart-content">
-            <div class="cart-event-panel" id="cart-event-panel" style="display: none;">
-                <div class="event-banner">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Evento</span>
-                    <button class="event-btn" onclick="showEventModal()">Ver Evento</button>
-                </div>
-                <p class="event-panel-subtitle">Completa 5 códigos y compra mínimo 100 Zelle en productos con códigos
-                    para ganar 5000 CUP.</p>
-                <div class="secret-codes-panel" id="secret-codes-panel">
-                    <h4>Códigos Secretos Encontrados:</h4>
-                    <div class="secret-codes-grid" id="secret-codes-grid">
-                        <div class="secret-code-slot" data-index="0"></div>
-                        <div class="secret-code-slot" data-index="1"></div>
-                        <div class="secret-code-slot" data-index="2"></div>
-                        <div class="secret-code-slot" data-index="3"></div>
-                        <div class="secret-code-slot" data-index="4"></div>
-                    </div>
-                </div>
-            </div>
             <div class="cart-items" id="cart-items"></div>
             <div class="empty-cart-panel" id="empty-cart-panel">
                 <div class="empty-cart-panel-content">
@@ -319,32 +300,6 @@
             <h3>Tu carrito está vacío</h3>
             <p>Añade productos para continuar con tu compra</p>
             <button class="continue-shopping-btn" onclick="closeEmptyCartModal()">Seguir comprando</button>
-        </div>
-    </div>
-
-    <!-- Modal de Evento -->
-    <div class="event-modal" id="event-modal">
-        <div class="event-modal-content">
-            <!-- Encabezado del modal -->
-            <div class="event-modal-header">
-                <div class="event-modal-title">
-                    <i class="fas fa-star"></i>
-                    <div>
-                        <h2 id="event-title">Evento Especial</h2>
-                        <p id="event-modal-subtitle" class="event-modal-subtitle">Gana 5000 CUP al completar 5 códigos
-                        </p>
-                    </div>
-                </div>
-                <button class="event-modal-close" id="event-modal-close">&times;</button>
-            </div>
-
-            <!-- Cuerpo del modal con scroll -->
-            <div class="event-modal-body">
-                <!-- Contenido dinámico del evento -->
-                <div id="event-modal-body" class="event-modal-content-wrapper">
-                    <!-- Se carga dinámicamente desde script.js -->
-                </div>
-            </div>
         </div>
     </div>
 

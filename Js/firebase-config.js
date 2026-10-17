@@ -289,10 +289,6 @@ async function fetchMensajesFromFirebase() {
   const data = await fromBootstrapOrEndpoint('mensajes', '/api/mensajes');
   return Array.isArray(data.mensajes) ? data.mensajes : [];
 }
-async function fetchEventoFromFirebase() {
-  const data = await fromBootstrapOrEndpoint('evento', '/api/evento');
-  return data.evento || null;
-}
 async function fetchInfoFromFirebase() {
   const data = await fromBootstrapOrEndpoint('info', '/api/info');
   return Array.isArray(data.info) ? data.info : [];
@@ -313,7 +309,6 @@ const watchPathFetchers = {
   notificationBanner: fetchNotificationBannerFromFirebase,
   afiliados: async () => (await fetchAfiliadosFromFirebase()).afiliados,
   mensajes: fetchMensajesFromFirebase,
-  evento: fetchEventoFromFirebase,
   info: fetchInfoFromFirebase,
   pay: fetchPayFromFirebase
 };
