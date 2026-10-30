@@ -400,4 +400,4 @@ window.CUBANAZO_DYNAMIC = {
   updateDynamicSystem,
 };
 
-console.log('[El Cubanazo Dynamic System] ✓ Cargado exitosamente');
+console.log('[Efata Market Dynamic System] ✓ Cargado exitosamente');

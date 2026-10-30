@@ -49,6 +49,8 @@ function inyectarEstiloUbicacionUnaVez() {
     .ubicacion-selector-btn:hover{background:var(--azul-claro,#dce7f7);border-color:var(--color-accent-primary,#1d4e9b);color:var(--azul-oscuro,#14315c);}
     .ubicacion-selector-btn.actual{background:var(--color-accent-primary,#1d4e9b);border-color:var(--color-accent-primary,#1d4e9b);color:var(--blanco,#fff);}
     .ubicacion-selector-btn.actual i{color:var(--blanco,#fff);}
+    .ubicacion-selector-cancel{margin-top:16px;padding:8px 16px;border:0;background:transparent;color:var(--gris-oscuro,#565959);font:inherit;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+    .ubicacion-selector-cancel:hover{color:var(--negro,#0f1111);}
     body.ubicacion-selector-open{overflow:hidden;}
   `;
   document.head.appendChild(style);
@@ -122,9 +124,29 @@ function abrirSelectorUbicacion(esCambioManual) {
         <div class="ubicacion-selector-options">
           ${UBICACIONES_DISPONIBLES.map(u => `<button class="ubicacion-selector-btn${u.id === actual ? ' actual' : ''}" data-ubicacion="${u.id}"><i class="fas fa-map-marker-alt"></i><span>${u.nombre}</span></button>`).join('')}
         </div>
+        ${esCambioManual ? '<button type="button" class="ubicacion-selector-cancel">Cancelar</button>' : ''}
       </div>
     `;
     document.body.appendChild(overlay);
+
+    const cerrarSelector = () => {
+      overlay.remove();
+      document.body.classList.remove('ubicacion-selector-open');
+      document.removeEventListener('keydown', manejarTecla);
+      resolve(null);
+    };
+
+    const manejarTecla = (event) => {
+      if (esCambioManual && event.key === 'Escape') cerrarSelector();
+    };
+
+    if (esCambioManual) {
+      overlay.querySelector('.ubicacion-selector-cancel').addEventListener('click', cerrarSelector);
+      overlay.addEventListener('click', (event) => {
+        if (event.target === overlay) cerrarSelector();
+      });
+      document.addEventListener('keydown', manejarTecla);
+    }
 
     overlay.querySelectorAll('.ubicacion-selector-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -132,13 +154,14 @@ function abrirSelectorUbicacion(esCambioManual) {
         try { localStorage.setItem(UBICACION_STORAGE_KEY, seleccion); } catch (e) {}
         overlay.remove();
         document.body.classList.remove('ubicacion-selector-open');
+        document.removeEventListener('keydown', manejarTecla);
         actualizarUbicacionEnHeader(seleccion);
         if (esCambioManual) {
           recargarDesdeInicioConNuevaUbicacion();
         } else {
           if (typeof switchCartToLocation === 'function') switchCartToLocation();
-          resolve(seleccion);
         }
+        resolve(seleccion);
       });
     });
   });

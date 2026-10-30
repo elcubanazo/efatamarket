@@ -4,27 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Cubanazo | Comida y productos a domicilio</title>
+    <title>Efata Market | Comida y productos a domicilio</title>
 
     <meta name="description"
-        content="Compra alimentos frescos, víveres y productos esenciales para el hogar en El Cubanazo, con entrega a domicilio en Cuba.">
+        content="Compra alimentos frescos, víveres y productos esenciales para el hogar en Efata Market, con entrega a domicilio en Cuba.">
     <meta name="keywords"
-        content="El Cubanazo, comida online, alimentos, víveres, productos esenciales, compras en Cuba, entrega a domicilio">
-    <meta name="author" content="El Cubanazo y Afiliados">
+        content="Efata Market, comida online, alimentos, víveres, productos esenciales, compras en Cuba, entrega a domicilio">
+    <meta name="author" content="Efata Market y Afiliados">
 
-    <meta property="og:site_name" content="El Cubanazo">
-    <meta property="og:title" content="El Cubanazo | Comida a domicilio">
+    <meta property="og:site_name" content="Efata Market">
+    <meta property="og:title" content="Efata Market | Comida a domicilio">
     <meta property="og:description"
         content="Alimentos, víveres y productos para el hogar con entrega a domicilio en Cuba.">
     <meta property="og:url" content="https://cubanazo.soporte-elcubanazo.workers.dev/">
     <meta property="og:image"
         content="https://cubanazo.soporte-elcubanazo.workers.dev/Images/social-share-banner.jpg">
-    <meta property="og:image:alt" content="El Cubanazo - Comida a domicilio">
+    <meta property="og:image:alt" content="Efata Market - Comida a domicilio">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_ES">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="El Cubanazo | Comida a domicilio">
+    <meta name="twitter:title" content="Efata Market | Comida a domicilio">
     <meta name="twitter:description" content="Alimentos, víveres y productos para el hogar con entrega a domicilio en Cuba.">
     <meta name="twitter:image" content="https://cubanazo.soporte-elcubanazo.workers.dev/Images/social-share-banner.jpg">
 
@@ -114,19 +114,19 @@
     <header class="header">
         <div class="header-top">
             <!-- Menú hamburguesa solo en móvil -->
-            <button class="menu-toggle" id="menu-toggle">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú de filtros">
                 <i class="fas fa-bars"></i>
             </button>
 
             <!-- Logo -->
             <span class="logo" onclick="goToHome()" role="button" tabindex="0" aria-label="Ir al inicio" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); goToHome(); }">
-                <img src="Images/LOGO.png" alt="El Cubanazo" class="logo-image">
+                <img src="Images/LOGO.png" alt="Efata Market" class="logo-image">
             </span>
 
             <!-- Barra de búsqueda -->
             <div class="search-container">
-                <input type="search" id="search-input" placeholder="Buscar productos..." inputmode="search" enterkeyhint="search" autocomplete="off">
-                <button class="search-btn" onclick="searchProducts(false)">
+                <input type="search" id="search-input" aria-label="Buscar productos" placeholder="Buscar productos…" inputmode="search" enterkeyhint="search" autocomplete="off">
+                <button class="search-btn" type="button" aria-label="Buscar productos" onclick="searchProducts(false)">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -142,12 +142,12 @@
             </div>
 
             <!-- Historial de compras -->
-            <button class="history-btn" onclick="togglePurchaseHistory()" title="Mis pedidos">
+            <button class="history-btn" type="button" aria-label="Mis pedidos" onclick="togglePurchaseHistory()" title="Mis pedidos">
                 <i class="fas fa-history"></i>
             </button>
 
             <!-- Carrito -->
-            <button class="cart-btn" onclick="toggleCart(event)">
+            <button class="cart-btn" type="button" aria-label="Abrir carrito" onclick="toggleCart(event)">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cart-count">0</span>
             </button>
@@ -216,7 +216,12 @@
         <div class="category-card-container">
             <div id="category-card-panel" class="category-card">
                 <div class="category-card-header">
-                    <h2 class="category-card-title">Packs Disponibles</h2>
+                    <div class="category-card-heading">
+                        <p class="category-card-kicker">Combos para tu compra</p>
+                        <h2 class="category-card-title">Packs disponibles</h2>
+                        <p class="category-card-subtitle">Productos seleccionados, listos para llevar juntos.</p>
+                    </div>
+                    <span class="category-card-count" id="category-card-count"></span>
                 </div>
                 <div class="category-card-body" id="category-card-items">
                     <!-- Los packs se cargarán dinámicamente aquí -->
@@ -463,13 +468,13 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3 class="footer-brand">El Cubanazo</h3>
+                    <h3 class="footer-brand">Efata Market</h3>
                     <p class="footer-tagline">Tu tienda online de confianza para productos frescos y esenciales</p>
                 </div>
                 <div class="footer-divider"></div>
                 <div class="footer-section">
                     <p class="footer-info"><i class="fas fa-phone"></i> <span id="footer-phone">+53 123456</span></p>
-                    <p class="footer-info"><i class="fas fa-envelope"></i> soporte.elcubanazo@gmail.com</p>
+                    <p class="footer-info"><i class="fas fa-envelope"></i> soporte@efatamarket.com</p>
                 </div>
             </div>
             <div class="footer-credits">
@@ -479,7 +484,7 @@
                     <a href="devoluciones.html">Devoluciones y Cambios</a>
                     <a href="reclamaciones.html">Libro de Reclamaciones</a>
                 </nav>
-                <p class="footer-text">© 2026 El Cubanazo y Afiliados. Todos los derechos reservados.</p>
+                <p class="footer-text">© 2026 Efata Market y Afiliados. Todos los derechos reservados.</p>
                 <div class="footer-developer">
                     <span class="footer-developer-label">Diseño y desarrollo por</span>
                     <a href="https://hlab.alederibia.workers.dev/" target="_blank" rel="noopener noreferrer" aria-label="Visitar HLab">
@@ -535,7 +540,7 @@
                 <p class="confirmation-order-number" id="confirmation-order-number"
                     style="display:none; font-weight:700; margin: 0 0 12px;">Número de orden: EC-01</p>
                 <p class="confirmation-message">Gracias por tu compra en
-                    El Cubanazo. Estamos procesando tu pedido y nos
+                    Efata Market. Estamos procesando tu pedido y nos
                     pondremos en contacto contigo pronto.</p>
 
                 <div class="order-status-steps">
@@ -567,7 +572,7 @@
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                         <div class="contact-detail">
                             <p class="contact-label">Correo</p>
-                            <p class="contact-value">soporte.elcubanazo@gmail.com</p>
+                            <p class="contact-value">soporte@efatamarket.com</p>
                         </div>
                     </div>
                 </div>

@@ -4168,11 +4168,15 @@ async function loadPacks() {
 function renderCategoryCard() {
   const categoryCardItems = document.getElementById("category-card-items");
   const categoryCardSection = document.getElementById("category-card-section");
+  const categoryCardPanel = document.getElementById("category-card-panel");
+  const categoryCardCount = document.getElementById("category-card-count");
+  const categoryCardFooter = document.querySelector(".category-card-footer");
   
   if (!categoryCardItems) return;
   
   // Mostrar solo packs disponibles
-  const displayPacks = getAvailablePacks().slice(0, 4);
+  const availablePacks = getAvailablePacks();
+  const displayPacks = availablePacks.slice(0, 4);
   
   // Si no hay packs, ocultar la sección
   if (displayPacks.length === 0) {
@@ -4182,6 +4186,13 @@ function renderCategoryCard() {
   }
 
   if (categoryCardSection) categoryCardSection.style.display = "block";
+  if (categoryCardPanel) categoryCardPanel.dataset.packCount = String(displayPacks.length);
+  if (categoryCardCount) {
+    categoryCardCount.textContent = `${availablePacks.length} ${availablePacks.length === 1 ? "pack disponible" : "packs disponibles"}`;
+  }
+  if (categoryCardFooter) {
+    categoryCardFooter.style.display = availablePacks.length > displayPacks.length ? "" : "none";
+  }
   
   // Limpiar el contenedor
   categoryCardItems.innerHTML = "";
@@ -4191,10 +4202,31 @@ function renderCategoryCard() {
     const item = document.createElement("div");
     item.className = "category-card-item";
     item.style.cursor = "pointer";
+    item.setAttribute("role", "button");
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("aria-label", `Ver pack ${pack.nombre}`);
     item.onclick = () => showPackDetail(encodeURIComponent(pack.nombre));
+    item.onkeydown = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        item.click();
+      }
+    };
     
     // Construir ruta de imagen
     const imagePath = `${getPackImageUrl(pack.imagen, 'thumb')}`;
+    const finalPrice = pack.descuento > 0
+      ? pack.precio * (1 - pack.descuento / 100)
+      : pack.precio;
+    const priceMarkup = `<span class="category-card-price">$${finalPrice.toFixed(2)}</span>${pack.descuento > 0 ? `<del class="category-card-old-price">$${pack.precio.toFixed(2)}</del>` : ""}`;
+    const discountMarkup = pack.descuento > 0
+      ? `<span class="category-card-discount">-${pack.descuento}%</span>`
+      : "";
+    const description = pack.descripcion || (
+      Array.isArray(pack.caracteristicas) && pack.caracteristicas.length
+        ? pack.caracteristicas.slice(0, 2).join(" · ")
+        : "Una selección práctica para tu compra."
+    );
     
     item.innerHTML = `
       <div class="category-card-image-container">
@@ -4205,7 +4237,16 @@ function renderCategoryCard() {
              decoding="async"
              onerror="this.onerror=null;this.src='Images/pack-placeholder.svg'">
       </div>
-      <div class="category-card-label">${escapeHtml(pack.nombre)}</div>
+      <div class="category-card-item-content">
+        <span class="category-card-item-kicker">${pack.descuento > 0 ? "Oferta especial" : "Pack disponible"}</span>
+        <div class="category-card-label">${escapeHtml(pack.nombre)}</div>
+        <p class="category-card-description">${escapeHtml(description)}</p>
+        <div class="category-card-item-bottom">
+          <div class="category-card-prices">${priceMarkup}</div>
+          ${discountMarkup}
+        </div>
+        <span class="category-card-action">Ver pack <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+      </div>
     `;
     
     categoryCardItems.appendChild(item);

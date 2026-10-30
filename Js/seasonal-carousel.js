@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  CARRUSEL ESTACIONAL "ESTILO AMAZON" - El Cubanazo
+ *  CARRUSEL ESTACIONAL "ESTILO AMAZON" - Efata Market
  * ============================================================
  *  Reemplaza el carrusel de banners (3 imágenes) por un carrusel
  *  de tarjetas con mini productos seleccionados ALEATORIAMENTE
