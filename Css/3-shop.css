@@ -234,13 +234,16 @@
   align-items: center;
   gap: 0.35rem;
   margin: 0.15rem 0 0.35rem;
+  min-height: 1.15rem;
   font-size: 0.85rem;
   color: #565959;
 }
 
 .product-rating .stars {
   display: inline-flex;
+  flex: 0 0 5rem;
   gap: 1px;
+  min-height: 1em;
 }
 
 .product-rating .star {

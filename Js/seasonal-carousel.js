@@ -66,6 +66,21 @@
     "postres": "Postres"
   };
 
+  const CATEGORY_BACKGROUND_IMAGES = {
+    "carnicos y embutidos": "Carnicos_resultado.webp",
+    "lacteos": "Lacteos_resultado.webp",
+    "despensa": "Despensa_resultado.webp",
+    "confitura": "Confituras_resultado.webp",
+    "bebidas no alcoholicas": "Bebidas_resultado.webp",
+    "bebidas alcoholicas": "Bebidas_resultado.webp",
+    "aseo y belleza": "Aseo_resultado.webp",
+    "aderezos": "Aderezo_resultado.webp",
+    "frutas": "Frutas_resultado.webp",
+    "verduras": "Verduras_resultado.webp",
+    "utiles del hogar": "Utiles_resultado.webp",
+    "postres": "Postre_resultado.webp"
+  };
+
   // Config por defecto (fallback si el JSON no carga).
   const SEASONAL_CAROUSEL_DEFAULTS = {
     cards: [
@@ -369,6 +384,11 @@
     return canonicalizeCategoria(value);
   }
 
+  function getCardBackgroundImage(categoria) {
+    const filename = CATEGORY_BACKGROUND_IMAGES[normalizeCategoria(categoria)];
+    return filename ? "Images/hero/" + filename : "";
+  }
+
   // Devuelve el pool filtrado por la categoría del card (exacta tras normalizar).
   // "Todo" (o vacío) devuelve todos los productos disponibles.
   function getProductsForCategoria(categoria) {
@@ -490,8 +510,16 @@
     const colorTexto = card.colorTexto || "#333333";
     const colorAcento = card.colorAcento || "var(--color-principal)";
     const categoria = getCardCategoria(card);
+    const backgroundImage = getCardBackgroundImage(categoria);
     const enlaceTexto = escapeHtml(card.enlaceTexto || "Ver más productos");
     const layout = card.layout === "imagen" ? "imagen" : "grid";
+    const useCategoryArtwork = Boolean(backgroundImage && layout === "grid");
+    const categorySlug = normalizeCategoria(categoria).replace(/\s+/g, "-");
+    const categoryClass = " seasonal-card--category-" + categorySlug;
+    const productCategoryClass = layout === "imagen" ? " seasonal-card--product-" + categorySlug : "";
+    const cardModifier = layout === "imagen"
+      ? " seasonal-card--product" + productCategoryClass
+      : " seasonal-card--art";
 
     const headerHTML =
       '<div class="sc-header">' +
@@ -516,15 +544,9 @@
         "</button>"
       : "";
 
-    // Icono temático como marca de agua de fondo (si la tarjeta define uno).
-    const watermark = card.icono
-      ? '<i class="fas ' + card.icono + ' seasonal-card-watermark" aria-hidden="true"></i>'
-      : "";
-
     return (
       '<article class="carousel-slide seasonal-slide' + (index === 0 ? " active" : "") + '" data-slide="' + index + '">' +
-        '<div class="seasonal-card" style="background:' + gradiente + ';color:' + colorTexto + ';--sc-accent:' + colorAcento + ';">' +
-          watermark +
+        '<div class="seasonal-card' + cardModifier + categoryClass + '" style="background:' + (useCategoryArtwork ? "url('" + backgroundImage + "') center / contain no-repeat, " : "") + gradiente + ';color:' + colorTexto + ';--sc-accent:' + colorAcento + ';">' +
           headerHTML +
           bodyHTML +
           categoryLinkHTML +
@@ -543,7 +565,7 @@
     const encodedName = encodeURIComponent(p.nombre || name);
     const imgFile = (p.imagenes && p.imagenes[0]) || p.imagen || "";
     const imgUrl = (typeof getProductImageUrl === "function")
-      ? getProductImageUrl(imgFile, "detail")
+      ? getProductImageUrl(imgFile, "thumb")
       : (imgFile
           ? "Images/" + String(imgFile).split("/").pop()
           : placeholder);
@@ -625,7 +647,13 @@
 
     // Mantener en el inicio tras re-render y sincronizar flechas/indicadores.
     if (wrapper.scrollLeft) wrapper.scrollLeft = 0;
-    if (typeof seasonalSync === "function") { try { seasonalSync(); } catch (e) {} }
+    if (typeof seasonalSync === "function") {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          try { seasonalSync(); } catch (e) {}
+        });
+      });
+    }
   }
 
   // Re-selecciona productos (catálogo cambió) y re-renderiza.
@@ -682,22 +710,26 @@
   function seasonalScrollBy(direction) {
     const track = seasonalTrackEl();
     if (!track) return;
+    if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
     const step = seasonalStepSize();
     track.scrollBy({
       left: direction * step,
       behavior: seasonalReducedMotion() ? "auto" : "smooth"
     });
     queueSeasonalSync();
+    scheduleSeasonalAutoplayResume();
   }
 
   function seasonalGoTo(index) {
     const track = seasonalTrackEl();
     if (!track) return;
+    if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
     const unit = seasonalCardUnit();
     const max = track.scrollWidth - track.clientWidth;
     const target = Math.max(0, Math.min(index * unit, max));
     track.scrollTo({ left: target, behavior: seasonalReducedMotion() ? "auto" : "smooth" });
     queueSeasonalSync();
+    scheduleSeasonalAutoplayResume();
   }
 
   // Sincroniza flechas + slide activo + indicadores según la posición.
@@ -729,6 +761,20 @@
   }
 
   let _seasonalSyncTimer = null;
+  let _seasonalAutoplayResumeTimer = null;
+
+  function scheduleSeasonalAutoplayResume() {
+    if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
+    if (_seasonalAutoplayResumeTimer) clearTimeout(_seasonalAutoplayResumeTimer);
+    _seasonalAutoplayResumeTimer = setTimeout(function () {
+      _seasonalAutoplayResumeTimer = null;
+      seasonalSync();
+      if (typeof window.startCarouselAutoplay === "function") {
+        window.startCarouselAutoplay();
+      }
+    }, 650);
+  }
+
   function queueSeasonalSync() {
     if (_seasonalSyncTimer) return;
     _seasonalSyncTimer = setTimeout(function () {
@@ -743,7 +789,6 @@
     if (track) {
       if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
       seasonalScrollBy(direction || 1);
-      if (typeof window.startCarouselAutoplay === "function") { try { window.startCarouselAutoplay(); } catch (e) {} }
       return;
     }
     if (typeof _origChangeSlide === "function") return _origChangeSlide(direction);
@@ -754,7 +799,6 @@
     if (track) {
       if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
       seasonalGoTo(index);
-      if (typeof window.startCarouselAutoplay === "function") { try { window.startCarouselAutoplay(); } catch (e) {} }
       return;
     }
     if (typeof _origGoToSlide === "function") return _origGoToSlide(index);
@@ -802,8 +846,18 @@
       else if (e.key === "ArrowLeft") { e.preventDefault(); if (typeof changeSlide === "function") changeSlide(-1); }
     });
 
-    // Scroll manual (touch/wheel) -> sincronizar flechas e indicadores.
-    track.addEventListener("scroll", function () { queueSeasonalSync(); }, { passive: true });
+    // Pausar durante interacción; reiniciar el autoplay tras scroll-snap/inercia.
+    track.addEventListener("scroll", function () {
+      queueSeasonalSync();
+      scheduleSeasonalAutoplayResume();
+    }, { passive: true });
+    track.addEventListener("pointerdown", function () {
+      if (typeof window.pauseCarouselAutoplay === "function") window.pauseCarouselAutoplay();
+      if (_seasonalAutoplayResumeTimer) clearTimeout(_seasonalAutoplayResumeTimer);
+      _seasonalAutoplayResumeTimer = null;
+    }, { passive: true });
+    track.addEventListener("pointerup", scheduleSeasonalAutoplayResume, { passive: true });
+    track.addEventListener("pointercancel", scheduleSeasonalAutoplayResume, { passive: true });
 
     // Al redimensionar / rotar, recalcular estado.
     if (typeof ResizeObserver !== "undefined") {
